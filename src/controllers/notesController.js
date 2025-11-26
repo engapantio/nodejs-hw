@@ -7,7 +7,6 @@ export const getAllNotes = async (req, res) => {
   res.status(200).json(notes);
 };
 
-// Отримати одного студента за id
 export const getNoteById = async (req, res, next) => {
   const { noteId } = req.params;
   const note = await Note.findById(noteId);
