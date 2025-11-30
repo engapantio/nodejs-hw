@@ -2,6 +2,7 @@
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
+import { errors } from 'celebrate';
 import { logger } from './middleware/logger.js';
 import notesRoutes from './routes/notesRoutes.js';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
@@ -24,6 +25,9 @@ app.use(notesRoutes);
 
 // Middleware 404 (після всіх маршрутів)
 app.use(notFoundHandler);
+
+// обробка помилок від celebrate (валідація)
+app.use(errors());
 
 // Middleware для обробки помилок
 app.use(errorHandler);
