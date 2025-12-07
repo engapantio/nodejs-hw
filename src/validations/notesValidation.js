@@ -21,7 +21,7 @@ export const getAllNotesSchema = {
       'number.integer': 'Page must be an integer number',
       'number.min': 'Page should not be lower than {#limit}',
     }),
-    perPage: Joi.number().integer().min(2).max(25).default(10).messages({
+    perPage: Joi.number().integer().min(5).max(20).default(10).messages({
       'number.base': 'PerPage must be a number',
       'number.integer': 'PerPage must be an integer number',
       'number.min': 'PerPage should be at least {#limit}',
@@ -32,15 +32,10 @@ export const getAllNotesSchema = {
 
 export const noteIdSchema = {
   [Segments.PARAMS]: Joi.object({
-    noteId: Joi.string()
-      .alphanum()
-      .custom(objectIdValidator)
-      .required()
-      .messages({
-        'string.base': 'NoteId must be a string',
-        'string.alphanum': 'NoteId must contain alphanumeric characters only',
-        'any.required': 'NoteId is required',
-      }),
+    noteId: Joi.string().custom(objectIdValidator).required().messages({
+      'string.base': 'NoteId must be a string',
+      'any.required': 'NoteId is required',
+    }),
   }),
 };
 
