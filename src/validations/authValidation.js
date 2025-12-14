@@ -23,3 +23,12 @@ export const requestResetEmailSchema = {
     email: Joi.string().email().required(),
   }),
 };
+
+export const resetPasswordSchema = {
+  [Segments.BODY]: Joi.object({
+    password: Joi.string().min(8).required().messages({
+      'string.min': 'Password must be at least {#limit} characters long',
+    }),
+    token: Joi.string().required(),
+  }),
+};
