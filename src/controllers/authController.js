@@ -142,20 +142,20 @@ export const requestResetEmail = async (req, res, next) => {
   });
 };
 
-export const resetPassword = async (req, res) => {
+export const resetPassword = async (req, res, next) => {
   const { token, password } = req.body;
   let payload;
 
   try {
     payload = jwt.verify(token, process.env.JWT_SECRET);
   } catch {
-    throw createHttpError(401, 'Invalid or expired token');
+    next(createHttpError(401, 'Invalid or expired token'));
     return;
   }
 
   const user = await User.findOne({ _id: payload.sub, email: payload.email });
   if (!user) {
-    throw createHttpError(404, 'User not found');
+    next(createHttpError(404, 'User not found'));
     return;
   }
   const hashedPassword = await bcrypt.hash(password, 10);
